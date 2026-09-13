@@ -1,0 +1,21 @@
+{
+  "source_commit": "aae7cc0ac5ca563dab8222320ae8749ed1911e56",
+  "electrical_pad_positions_sizes_layers_and_net_names_unchanged": true,
+  "footprint_positions_unchanged": true,
+  "switch_center_holes_diameter_5mm": 30,
+  "fixing_pin_slots_1_5_by_2mm": 60,
+  "pcb_sha256": "edf990ce9b2b3a390986966a4d6bb005534bb7c051c6ca095f589298f22549ab",
+  "counts_before": {
+    "footprint": 85,
+    "segment": 3070,
+    "via": 418,
+    "zone": 2
+  },
+  "counts_after": {
+    "footprint": 85,
+    "segment": 3540,
+    "via": 415,
+    "zone": 2
+  },
+  "project_min_track_width_mm": 0.15
+}

@@ -1,81 +1,98 @@
-# Sofle Choc Wireless Keyboard
+# Sofle Choc Wireless — Choc v2 PCB prototype
 
-The Sofle Choc Wireless Keyboard is a revision of the Sofle Choc keyboard by [Brian Low](https://github.com/brianlow) with features that make it more suitable to building with wireless microcontrollers.
+Revision: CV2-P1, 2026-09-13. Based on
+[db-ok/SofleChocWireless](https://github.com/db-ok/SofleChocWireless/tree/aae7cc0ac5ca563dab8222320ae8749ed1911e56),
+commit `aae7cc0ac5ca563dab8222320ae8749ed1911e56`.
 
+This project modifies the reversible Sofle Choc Wireless PCB for Kailh Choc v2
+(PG1353) switch mounting. The PCB, three switch footprint definitions, and
+minimum track-width constraint have been changed. Nearby traces and vias have
+been rerouted around the enlarged holes.
 
-![Sofle Choc Wireless Keyboard](docs/images/sofle_choc_wireless_with_niceview.jpg)
-*The Sofle Choc Wireless Keyboard with an encoder and nice!view on the left half*
+**This is an unbuilt prototype.** Connectivity passes KiCad's check, but the
+board still has DRC findings described in `VALIDATION.md`. Review those findings
+and test physical fit before ordering an assembled keyboard or a production run.
 
---
---
+## Open the design
 
-The following 2 pictures are the same exact board:
+Extract the complete ZIP, then open:
 
-![Sofle Choc Wireless Keyboard with dual encoders and RGB LEDS](docs/images/sofle-choc-wireless-with-dual-encoders-rgb.jpg)
-  *(Above: the Sofle Choc Wireless Keyboard with RGB LEDs and dual encoders)*
+`SofleChocWireless/PCB/SofleKeyboard.kicad_pro`
 
-![Sofle Choc Wireless Keyboard with no encoders and RGB LEDS](docs/images/sofle-choc-wireless-no-encoders-rgb.jpg)
-  *(Above: The Sofle Choc Wireless Keyboard with RGB LEDs and no encoders)*
+Use KiCad 7 or newer. The routed board is
+`SofleChocWireless/PCB/SofleKeyboard.kicad_pcb`; the schematic is alongside it.
+Keep the folder structure so the project-local library paths resolve. Standard
+KiCad libraries may be needed to edit or replace other components. Footprints
+are embedded in the PCB, including the revised switch geometry.
 
-The encoders in the first picture were hot-swapped for Choc switches in the second picture.
-This allows for more build flexibility to change up your build, and as an added bonus, you can test out different rotary encoder options without soldering them in until you find one that you like.
+The source schematic is electrically unchanged. No firmware matrix changes are
+required by these mechanical switch changes.
 
-## Disclaimer
-This is a prototype keyboard, so it comes with no guarantees. There may be changes to it in the future to fix problems or add features. That being said, it functions as intended for my own standards, so if you like the design, feel free to get a PCB made and build it for yourself!
+## PCB changes
 
-## Differences from Sofle Choc (wired) keyboard
-- Added power switch to connect/disconnect battery power to RAW pin of microcontroller
-- Added JST connector for battery connection
-- [nice!view](https://nicekeyboards.com/docs/nice-view/) display support *(still supports common OLED displays as well)*
-- Encoder can be swapped with a Choc switch on either half
-    - These can both be hot-swapped if Mill-Max sockets are installed
-- Added a bottom plate PCB to allow for more build options
-- Made a hole in the PCB for battery wire routing if needed
-- Position of the encoder is shifted down to allow room for a larger encoder knob
-- 1 additional RBG LED on each half under the encoder / choc switch position
-- Removed the TRRS jacks and related components
-- Changed the microcontroller pin connected to the RGB LED data line
+| Feature | Revised geometry |
+| --- | --- |
+| Switch center hole | 5.0 mm nonplated hole at each of 30 positions per half |
+| Fixing-pin relief | Two mirrored 1.5 × 2.0 mm nonplated slots per switch; 60 total |
+| Ordinary switch slot centers | Local coordinates (−5, 5.15) and (5, 5.15) mm |
+| Optional encoder-position switch SW25 | Slots at local (−5, −5.15) and (5, −5.15) mm, matching its reversed switch orientation |
+| Minimum track width | 0.15 mm, with new route sections using this width |
+| Copper clearance constraint | Existing 0.20 mm minimum retained |
+| Hole clearance constraint | Existing 0.25 mm minimum retained |
 
-## Encoder Support
-The PCB supports a rotary encoder or a Choc switch in the same location on either half, and *either one can use Mill-Max sockets*. If you don't want to use Mill-Max sockets, you can hard-solder either a rotary encoder or a Choc switch into either side.
+The 3.4 mm switch center holes were enlarged. At the 29 ordinary hotswap
+positions, the old small boss holes were replaced by the fixing-pin slots.
+SW25 received the two slots as well. Slot orientation follows each footprint,
+including the angled thumb switches. Both mirrored positions are included for
+the reversible PCB.
 
-## Display Support
-The PCB supports either a 4-pin OLED screen commonly found on DIY keyboards, or the 5-pin [nice!view](https://nicekeyboards.com/docs/nice-view/) low power usage display.
+Electrical pad positions, sizes, layers, net names, and component positions
+match the original board. Routing changes affect nearby matrix, LED, and ground
+connections. Copper zones were refilled after rerouting. Ground vias were moved,
+added, or removed as needed to retain connectivity around the new holes.
 
-## Firmware 
+The three updated library footprints are in
+`SofleChocWireless/PCB/SofleChoc.pretty/`:
 
-Sofle Choc Wireless uses [ZMK firmware](https://zmk.dev/)
+- `Choc_Hotswap_SK6812MiniE_BiggerHSPads.kicad_mod` — 25 placements.
+- `Choc_Hotswap_SK6812MiniE_BiggerHSPads_Column1.kicad_mod` — 4 placements.
+- `Kailh-PG1350-1u-reversible-SK6812MiniE_MODIFIED.kicad_mod` — SW25.
 
-Firmware-related info for display and LED features:
-  - This PCB has a chip select (CS) pin for the nice!view display that uses Arduino Digital 1 (D1 Pro Micro pin), which corresponds to P0.06/006 on the nice!nano. This is the default pin used by the nice!view, which makes it easier to configure. See build guide "Firmware and programming" section for more info on building firmware that supports the nice!view.
-  - The RGB LED pin is relocated to Arduino Digital 0 (D0 Pro Micro pin), which corresponds to P0.08/008 on the nice!nano
+Their original names are retained so existing schematic and board references
+continue to resolve. Other footprint variants in the bundled libraries were
+not converted to Choc v2.
 
-### Example config repository
-There is a zmk-config example repository where each branch has a different combination of options (OLED, niceview, RGB) enabled:
-https://github.com/db-ok/zmk-config-soflechocwireless
+## Assembly and fabrication
 
+The original 29 hotswap positions and optional switch/encoder position are
+retained. The existing wireless controller, battery, display, encoder, and LED
+circuits are retained.
 
-## Build Guide
+The center-hole and fixing-slot geometry targets PG1353, with slot relief
+cross-checked against the PG1353S drawing. Physical compatibility has not been
+tested with either variant. Choc v1 fit is also unverified after replacing the
+original boss holes.
 
-Please read the entire build guide before ordering any parts, as there are some options to consider:
+The case and plate files are included unchanged as reference geometry. Check
+plate thickness, switch retention, keycap clearance, and standoff heights
+against the exact switch variant and keycaps you intend to use. The existing
+plate file settings are not a Choc v2 assembly specification.
 
-[Build guide](docs/build_guide_choc_wireless.md)
+Choose a PCB process that supports the project's 0.15 mm traces and routed
+nonplated slots. Review the remaining DRC findings, inspect both copper layers
+around the switch openings, and regenerate Gerbers and drill files from this
+modified board after review. Confirm that the drill output contains the slots.
+No fabrication exports are included in this package.
 
+Prototype checks should cover switch seating on both PCB orientations, hotswap
+socket clearance, matrix operation, wireless power operation, and LED operation
+under the intended load. These have not been physically tested.
 
+## Design references
 
-## From the original Sofle repo:
+- [Upstream source and build guide](https://github.com/db-ok/SofleChocWireless/blob/aae7cc0ac5ca563dab8222320ae8749ed1911e56/docs/build_guide_choc_wireless.md).
+- [Kailh PG1353 datasheet, archived by Keyboardio](https://github.com/keyboardio/keyswitch_documentation/blob/323ea47b7b90550327231fa311a2762b1308661a/datasheets/Kailh/CPG135301D02.pdf).
+- [Kailh PG1353S datasheet](https://www.kailhswitch.com/uploads/15927/files/CPG1353S01D02-01-data-sheet.pdf).
+- [ai03 PG1353 hotswap footprint cross-check](https://github.com/ai03-2725/MX_V2/blob/0b379eebbeb66c7fd6e82e400b47958ad695614e/Kailh_PG1353_Hotswap.pretty/Kailh-PG1353-Hotswap-1U.kicad_mod).
 
-Original SofleKeyboard repo: https://github.com/josefadamcik/SofleKeyboard
-
-Sofle is 6×4+5 keys column-staggered split keyboard with encoder support. 
-
-Based on [Lily58](https://github.com/kata0510/Lily58), [Corne](https://github.com/foostan/crkbd) and [Helix](https://github.com/MakotoKurauchi/helix) keyboards.
-
-SofleKeyboard was created by [Josef Adamcik](https://josef-adamcik.cz/). The motivation and process is covered in following blog-post: [Let me introduce you to SofleKeyboard - a split keyboard based on Lily58 and Crkbd](https://josef-adamcik.cz/electronics/let-me-introduce-you-sofle-keyboard-split-keyboard-based-on-lily58.html)
-
-Sofle RGB was contributed by [Dane Evans](https://github.com/DaneEvans).
-
-Sofle Choc was designed by [Brian Low](https://github.com/BrianLow)
-
-
-
+The upstream license is included in `LICENSE`.
