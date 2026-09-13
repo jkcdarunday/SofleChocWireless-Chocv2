@@ -13,6 +13,10 @@ been rerouted around the enlarged holes.
 board still has DRC findings described in `VALIDATION.md`. Review those findings
 and test physical fit before ordering an assembled keyboard or a production run.
 
+## AI-Generated Changes Disclosure
+
+The changes in this fork were generated using ChatGPT 6 Astra Max and have not been independently reviewed or tested.
+
 ## Open the design
 
 Extract the complete ZIP, then open:
