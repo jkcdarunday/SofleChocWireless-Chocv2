@@ -21,6 +21,10 @@ Reroutes affected connections around the enlarged center holes and uses
 0.25 mm ground bridges where needed. No vias were added, removed, or moved.
 No additional silent-switch pin relief is included in this version.
 
+For switches requiring an additional locating-pin slot, see the
+[Choc v2 Silent v2 branch](https://github.com/jkcdarunday/SofleChocWireless-Chocv2/tree/choc-v2-silent-v2),
+which adds mirrored 1.5 × 2.0 mm non-plated slots at every switch position.
+
 Both silkscreen labels credit `jkcdarunday` and the base design by `db`.
 The schematic, electrical pad mapping, component placements, outline, LED
 cutouts, mounting holes, firmware mapping, and case/plate geometry are preserved.
