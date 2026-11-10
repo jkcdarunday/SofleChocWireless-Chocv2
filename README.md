@@ -1,5 +1,9 @@
 # Sofle Choc Wireless — Choc v2 Hole-Only
 
+> **Untested hardware:** This modified PCB has not been physically tested.
+> File-level checks do not verify switch fit, assembly, or electrical operation.
+> Fabricate and build at your own risk; a working keyboard is not guaranteed.
+
 | Left half (back view) | Right half (front view) |
 | --- | --- |
 | ![Choc v2 Hole-Only bare PCB, back](docs/images/pcb-back.png) | ![Choc v2 Hole-Only bare PCB, front](docs/images/pcb-front.png) |
