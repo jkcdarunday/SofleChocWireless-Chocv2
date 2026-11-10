@@ -1,12 +1,14 @@
 # Sofle Choc Wireless — Choc v2 Hole-Only
 
-| Front | Back |
+| Left half (back view) | Right half (front view) |
 | --- | --- |
-| ![Choc v2 Hole-Only bare PCB, front](docs/images/pcb-front.png) | ![Choc v2 Hole-Only bare PCB, back](docs/images/pcb-back.png) |
+| ![Choc v2 Hole-Only bare PCB, back](docs/images/pcb-back.png) | ![Choc v2 Hole-Only bare PCB, front](docs/images/pcb-front.png) |
 
-Bare-board KiCad 10 renders with component models hidden. SW25 is the isolated
-encoder/switch position below the reset button in the front view. The back view
-shows the board flipped over.
+Green bare-board KiCad 10 renders with component models hidden, arranged as
+the assembled keyboard: left half on the left, right half on the right. The
+reversible PCB uses its back face for the left half and front face for the
+right half. SW25 is the isolated encoder/switch position below the reset button
+in the right-half view.
 
 Based on db-ok/SofleChocWireless at
 `aae7cc0ac5ca563dab8222320ae8749ed1911e56`. This branch contains the adapted
