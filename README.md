@@ -1,5 +1,10 @@
 # Sofle Choc Wireless — Choc v2 Hole-Only
 
+![Choc v2 Hole-Only PCB render](docs/images/pcb-render.png)
+
+KiCad 10 render of this branch’s saved PCB with available component models.
+SW25 is the encoder/switch position below the reset button near the lower-left edge.
+
 Based on db-ok/SofleChocWireless at
 `aae7cc0ac5ca563dab8222320ae8749ed1911e56`. This branch contains the adapted
 board, matching source footprints and project settings, and fabrication files.
